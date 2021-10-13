@@ -26,12 +26,25 @@ namespace AnalogClockControl.CustomControls
 
             UpdateHandAngles();
 
+            //System.Timers.Timer atimer = new System.Timers.Timer();
+            //atimer.Interval = 500;
+            //atimer.Elapsed += Atimer_Elapsed;
+            //atimer.Start();
+
             DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = new TimeSpan(0,0,1);
+            timer.Interval = TimeSpan.FromMilliseconds(50);
             timer.Tick += (s, e) => UpdateHandAngles();
             timer.Start();
 
             base.OnApplyTemplate();
+        }
+
+        private void Atimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            hourHand.RenderTransform = new RotateTransform((DateTime.Now.Hour / 12.0) * 360, 0.5, 0.5);
+            minuteHand.RenderTransform = new RotateTransform((DateTime.Now.Minute / 60.0) * 360, 0.5, 0.5);
+            secondHand.RenderTransform = new RotateTransform((DateTime.Now.Second / 60.0) * 360, 0.5, 0.5);
+            Console.WriteLine("Tick");
         }
 
         private void UpdateHandAngles()

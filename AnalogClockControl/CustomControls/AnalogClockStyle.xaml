@@ -13,6 +13,8 @@
                         <Line x:Name="PART_MinuteHand" Stroke="Black" StrokeThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center"  X1="0" X2="-100"/>
                         <Line x:Name="PART_SecondHand" Stroke="Red" StrokeThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center"  X1="0" X2="-100"/>
 
+                        <Ellipse x:Name="PART_Center" Fill="Red" Width="4" Height="4"/>
+                        <Ellipse x:Name="PART_Center2" Stroke="Black" StrokeThickness="1" Width="8" Height="8"/>
                         <Ellipse x:Name="PART_Border" Stroke="Black" StrokeThickness="1" Width="210" Height="210" />
                     </Grid>
                 </ControlTemplate>
