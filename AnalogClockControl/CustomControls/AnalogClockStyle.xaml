@@ -6,20 +6,88 @@
             <Setter.Value>
                 <ControlTemplate TargetType="local:AnalogClock">
                     <StackPanel>
-                        <Grid RenderTransformOrigin="0.5,0.5">
-                            <Grid.RenderTransform>
-                                <RotateTransform Angle="90"/>
-                            </Grid.RenderTransform>
-                            <Line x:Name="PART_HourHand" Stroke="Black" StrokeThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center"  X1="0" X2="-75"/>
-                            <Line x:Name="PART_MinuteHand" Stroke="Black" StrokeThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center"  X1="0" X2="-100"/>
-                            <Line x:Name="PART_SecondHand" Stroke="Red" StrokeThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center"  X1="0" X2="-100"/>
+                        <Viewbox>
+                            <Grid>
+                                <Grid RenderTransformOrigin="0.5,0.5">
+                                    <Grid.RenderTransform>
+                                        <RotateTransform Angle="90"/>
+                                    </Grid.RenderTransform>
+                                    <Line x:Name="PART_HourHand" Stroke="Black" StrokeThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center"  X1="0" X2="-125"/>
+                                    <Line x:Name="PART_MinuteHand" Stroke="Black" StrokeThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center"  X1="0" X2="-180"/>
+                                    <Line x:Name="PART_SecondHand" Stroke="Red" StrokeThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center"  X1="0" X2="-180"/>
 
-                            <Ellipse x:Name="PART_Center" Fill="Red" Width="4" Height="4"/>
-                            <Ellipse x:Name="PART_Center2" Stroke="Black" StrokeThickness="1" Width="8" Height="8"/>
-                            <Ellipse x:Name="PART_Border" Stroke="Black" StrokeThickness="1" Width="210" Height="210" />
-                        </Grid>
-                        <Grid>
-                            <TextBlock x:Name="PART_Digital" />
+                                    <Ellipse x:Name="PART_Center" Fill="Red" Width="4" Height="4"/>
+                                    <Ellipse x:Name="PART_Center2" Stroke="Black" StrokeThickness="1" Width="8" Height="8"/>
+                                    <Ellipse x:Name="PART_Border" Stroke="Black" StrokeThickness="1" Width="210" Height="210" Fill="#02000000" />
+
+                                    <Grid x:Name="PART_ClockTicks">
+                                        <Line X1="180.59" Y1="3.1" X2="181.22" Y2="9.06" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="159.92" Y1="6.37" X2="161.17" Y2="12.24" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="139.7" Y1="11.79" X2="141.55" Y2="17.5" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="120.15" Y1="19.29" X2="122.59" Y2="24.77" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="83.94" Y1="40.2" X2="87.47" Y2="45.05" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="67.67" Y1="53.37" X2="71.69" Y2="57.83" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="52.87" Y1="68.17" X2="57.33" Y2="72.19" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="39.7" Y1="84.44" X2="44.55" Y2="87.97" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="18.79" Y1="120.65" X2="24.27" Y2="123.09" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="11.29" Y1="140.2" X2="17" Y2="142.05" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="5.87" Y1="160.42" X2="11.74" Y2="161.67" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="2.6" Y1="181.09" X2="8.56" Y2="181.72" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="2.6" Y1="222.91" X2="8.56" Y2="222.28" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="5.87" Y1="243.58" X2="11.74" Y2="242.33" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="11.29" Y1="263.8" X2="17" Y2="261.95" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="18.79" Y1="283.35" X2="24.27" Y2="280.91" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="39.7" Y1="319.56" X2="44.55" Y2="316.03" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="52.87" Y1="335.83" X2="57.33" Y2="331.81" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="67.67" Y1="350.63" X2="71.69" Y2="346.17" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="83.94" Y1="363.8" X2="87.47" Y2="358.95" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="120.15" Y1="384.71" X2="122.59" Y2="379.23" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="139.7" Y1="392.21" X2="141.55" Y2="386.5" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="159.92" Y1="397.63" X2="161.17" Y2="391.76" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="180.59" Y1="400.9" X2="181.22" Y2="394.94" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="222.41" Y1="400.9" X2="221.78" Y2="394.94" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="243.08" Y1="397.63" X2="241.83" Y2="391.76" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="263.3" Y1="392.21" X2="261.45" Y2="386.5" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="282.85" Y1="384.71" X2="280.41" Y2="379.23" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="319.06" Y1="363.8" X2="315.53" Y2="358.95" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="335.33" Y1="350.63" X2="331.31" Y2="346.17" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="350.13" Y1="335.83" X2="345.67" Y2="331.81" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="363.3" Y1="319.56" X2="358.45" Y2="316.03" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="384.21" Y1="283.35" X2="378.73" Y2="280.91" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="391.71" Y1="263.8" X2="386" Y2="261.95" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="397.13" Y1="243.58" X2="391.26" Y2="242.33" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="400.4" Y1="222.91" X2="394.44" Y2="222.28" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="400.4" Y1="181.09" X2="394.44" Y2="181.72" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="397.13" Y1="160.42" X2="391.26" Y2="161.67" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="391.71" Y1="140.2" X2="386" Y2="142.05" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="384.21" Y1="120.65" X2="378.73" Y2="123.09" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="363.3" Y1="84.44" X2="358.45" Y2="87.97" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="350.13" Y1="68.17" X2="345.67" Y2="72.19" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="335.33" Y1="53.37" X2="331.31" Y2="57.83" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="319.06" Y1="40.2" X2="315.53" Y2="45.05" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="282.85" Y1="19.29" X2="280.41" Y2="24.77" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="263.3" Y1="11.79" X2="261.45" Y2="17.5" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="243.08" Y1="6.37" X2="241.83" Y2="12.24" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="222.41" Y1="3.1" X2="221.78" Y2="9.06" Stroke="#ff231f20" StrokeThickness="2"/>
+                                        <Line X1="201.5" X2="201.5" Y2="10" Stroke="#ff231f20" StrokeThickness="3"/>
+                                        <Line X1="101" Y1="26.93" X2="106" Y2="35.59" Stroke="#ff231f20" StrokeThickness="3"/>
+                                        <Line X1="27.06" Y1="100.87" X2="35.72" Y2="105.87" Stroke="#ff231f20" StrokeThickness="3"/>
+                                        <Line Y1="201.87" X2="10" Y2="201.87" Stroke="#ff231f20" StrokeThickness="3"/>
+                                        <Line X1="26.93" Y1="302.37" X2="35.59" Y2="297.37" Stroke="#ff231f20" StrokeThickness="3"/>
+                                        <Line X1="100.87" Y1="376.3" X2="105.87" Y2="367.64" Stroke="#ff231f20" StrokeThickness="3"/>
+                                        <Line X1="201.87" Y1="403.37" X2="201.87" Y2="393.37" Stroke="#ff231f20" StrokeThickness="3"/>
+                                        <Line X1="302.37" Y1="376.44" X2="297.37" Y2="367.78" Stroke="#ff231f20" StrokeThickness="3"/>
+                                        <Line X1="376.3" Y1="302.5" X2="367.64" Y2="297.5" Stroke="#ff231f20" StrokeThickness="3"/>
+                                        <Line X1="403.37" Y1="201.5" X2="393.37" Y2="201.5" Stroke="#ff231f20" StrokeThickness="3"/>
+                                        <Line X1="376.44" Y1="101" X2="367.78" Y2="106" Stroke="#ff231f20" StrokeThickness="3"/>
+                                        <Line X1="302.5" Y1="27.06" X2="297.5" Y2="35.72" Stroke="#ff231f20" StrokeThickness="3"/>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Viewbox>
+                        <Grid Margin="0,8">
+                            <TextBlock x:Name="PART_Digital" Text="00:00:00" HorizontalAlignment="Center" FontSize="16" Margin="0,-150"/>
+                            <TextBlock x:Name="PART_Digital2" Text="AM" HorizontalAlignment="Center" FontSize="12" Margin="0,-130" FontWeight="Bold"/>
                         </Grid>
                     </StackPanel>
                 </ControlTemplate>

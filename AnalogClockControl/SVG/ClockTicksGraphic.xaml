@@ -1,0 +1,7 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ControlTemplate x:Key="ClockTickssvg">
+    <Viewbox Width="403.37" Height="403.37">
+      <Canvas Height="403.37" Width="403.37" />
+    </Viewbox>
+  </ControlTemplate>
+</ResourceDictionary>
