@@ -9,6 +9,8 @@ namespace AnalogClockControl.CustomControls
 {
     public class AnalogClock : Control
     {
+        private readonly DispatcherTimer dispTimer = new DispatcherTimer(DispatcherPriority.Send);
+
         private Line hourHand;
         private Line minuteHand;
         private Line secondHand;
@@ -24,34 +26,24 @@ namespace AnalogClockControl.CustomControls
             minuteHand = Template.FindName("PART_MinuteHand", this) as Line;
             secondHand = Template.FindName("PART_SecondHand", this) as Line;
 
-            UpdateHandAngles();
-
-            //System.Timers.Timer atimer = new System.Timers.Timer();
-            //atimer.Interval = 500;
-            //atimer.Elapsed += Atimer_Elapsed;
-            //atimer.Start();
-
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(50);
-            timer.Tick += (s, e) => UpdateHandAngles();
-            timer.Start();
+            dispTimer.Interval = TimeSpan.FromMilliseconds(250);
+            dispTimer.Tick += new EventHandler(dispTimer_Tick);
+            dispTimer.IsEnabled = true;
 
             base.OnApplyTemplate();
         }
 
-        private void Atimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        void dispTimer_Tick(object sender, EventArgs e)
         {
-            hourHand.RenderTransform = new RotateTransform((DateTime.Now.Hour / 12.0) * 360, 0.5, 0.5);
-            minuteHand.RenderTransform = new RotateTransform((DateTime.Now.Minute / 60.0) * 360, 0.5, 0.5);
-            secondHand.RenderTransform = new RotateTransform((DateTime.Now.Second / 60.0) * 360, 0.5, 0.5);
-            Console.WriteLine("Tick");
+            UpdateHandAngles();
         }
 
         private void UpdateHandAngles()
         {
             hourHand.RenderTransform = new RotateTransform((DateTime.Now.Hour / 12.0) * 360, 0.5, 0.5);
             minuteHand.RenderTransform = new RotateTransform((DateTime.Now.Minute / 60.0) * 360, 0.5, 0.5);
-            secondHand.RenderTransform = new RotateTransform((DateTime.Now.Second / 60.0) * 360, 0.5, 0.5);
+            secondHand.RenderTransform = new RotateTransform((DateTime.Now.Second / 240.0) * 360, 0.5, 0.5);
+            
         }
     }
 }
