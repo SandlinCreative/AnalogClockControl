@@ -104,7 +104,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="SVG\ClockTicks.svg" />
+    <Resource Include="Resources\ClockTicks.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ChromeClose_16x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

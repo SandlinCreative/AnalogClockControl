@@ -12,13 +12,13 @@
                                     <Grid.RenderTransform>
                                         <RotateTransform Angle="90"/>
                                     </Grid.RenderTransform>
+                                    <Ellipse x:Name="PART_Border" Stroke="Black" StrokeThickness="1" Width="210" Height="210" Fill="#0C000000" />
+                                    <Ellipse x:Name="PART_Center" Fill="Red" Width="4" Height="4"/>
+                                    <Ellipse x:Name="PART_Center2" Stroke="Black" StrokeThickness="1" Width="8" Height="8"/>
+
                                     <Line x:Name="PART_HourHand" Stroke="Black" StrokeThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center"  X1="0" X2="-125"/>
                                     <Line x:Name="PART_MinuteHand" Stroke="Black" StrokeThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center"  X1="0" X2="-180"/>
                                     <Line x:Name="PART_SecondHand" Stroke="Red" StrokeThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center"  X1="0" X2="-180"/>
-
-                                    <Ellipse x:Name="PART_Center" Fill="Red" Width="4" Height="4"/>
-                                    <Ellipse x:Name="PART_Center2" Stroke="Black" StrokeThickness="1" Width="8" Height="8"/>
-                                    <Ellipse x:Name="PART_Border" Stroke="Black" StrokeThickness="1" Width="210" Height="210" Fill="#02000000" />
 
                                     <Grid x:Name="PART_ClockTicks">
                                         <Line X1="180.59" Y1="3.1" X2="181.22" Y2="9.06" Stroke="#ff231f20" StrokeThickness="2"/>

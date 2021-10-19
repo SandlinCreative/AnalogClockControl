@@ -10,11 +10,11 @@
         AllowsTransparency="True" 
         WindowStyle="None" 
         PreviewMouseDown="TheWindow_PreviewMouseDown" 
-        PreviewMouseRightButtonUp="TheWindow_PreviewMouseRightButtonUp"
+        
         MouseWheel="TheWindow_MouseWheel" Background="{x:Null}" Topmost="True"
         >
 
     <Viewbox Margin="8">
-        <custom:AnalogClock />
+        <custom:AnalogClock/>
     </Viewbox>
 </Window>
