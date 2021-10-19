@@ -45,6 +45,7 @@ namespace AnalogClockControl.CustomControls
             mi.Click += (s, e) => Application.Current.Shutdown();
             mi2.Header = "Dark Mode";
             mi3.Header = "Light Mode";
+            //mi3.Icon = MakeIcon("pack://application:,,,/Resources/Checkmark_12x_16x.png", 16);
             mi2.Click += (s, e) => SetThemeColor(Colors.Black);
             mi3.Click += (s, e) => SetThemeColor(Colors.White);
         }
@@ -105,7 +106,7 @@ namespace AnalogClockControl.CustomControls
         {
             hourHand.RenderTransform = new RotateTransform((DateTime.Now.Hour / 12.0) * 360, 0.5, 0.5);
             minuteHand.RenderTransform = new RotateTransform((DateTime.Now.Minute / 60.0) * 360, 0.5, 0.5);
-            secondHand.RenderTransform = new RotateTransform((DateTime.Now.Second / 60.0) * 360, 0.5, 0.5);
+            secondHand.RenderTransform = new RotateTransform((DateTime.Now.Millisecond / 60.0) * 360, 0.5, 0.5);
 
             digital.Text = DateTime.Now.ToString("hh:mm:ss");
             digital2.Text = DateTime.Now.ToString("tt");
@@ -113,15 +114,16 @@ namespace AnalogClockControl.CustomControls
             //SetThemeColor();
         }
 
+        System.Windows.Media.Imaging.BitmapImage srcBmp = new System.Windows.Media.Imaging.BitmapImage();
+        Image icon = new Image();
         private Image MakeIcon(string path, int pixelWidth)
         {
-            System.Windows.Media.Imaging.BitmapImage srcBmp = new System.Windows.Media.Imaging.BitmapImage();
             srcBmp.BeginInit();
             srcBmp.UriSource = new Uri(path);
             srcBmp.DecodePixelWidth = pixelWidth;
             srcBmp.EndInit();
-            Image icon = new Image();
             icon.Source = srcBmp;
+            
             return icon;
         }
     }
