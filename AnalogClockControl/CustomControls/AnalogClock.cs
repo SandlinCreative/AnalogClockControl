@@ -20,6 +20,7 @@ namespace AnalogClockControl.CustomControls
         private TextBlock digital2;
         private Grid ticks;
         private Ellipse border;
+        private Ellipse centerRing;
 
 
         static AnalogClock()
@@ -36,33 +37,31 @@ namespace AnalogClockControl.CustomControls
             digital2 = Template.FindName("PART_Digital2", this) as TextBlock;
             ticks = Template.FindName("PART_ClockTicks", this) as Grid;
             border = Template.FindName("PART_Border", this) as Ellipse;
+            centerRing = Template.FindName("PART_Center2", this) as Ellipse;
 
             dispTimer.Interval = TimeSpan.FromMilliseconds(1000);
             dispTimer.Tick += new EventHandler(UpdateClocks);
             dispTimer.IsEnabled = true;
 
-            SetWhiteTheme();
+            SetThemeColor(Colors.White);
 
             base.OnApplyTemplate();
         }
 
-        private void SetWhiteTheme()
+        private void SetThemeColor(Color color)
         {
-            var brush = new SolidColorBrush(Color.FromRgb(255,255,255));
-            var kids = ticks.Children;
-            foreach (Line item in kids)
-            {
-                item.Stroke = brush;
-            }
+            var brush = new SolidColorBrush(color);
+
             border.Stroke = brush;
             hourHand.Stroke = brush;
             minuteHand.Stroke = brush;
             digital.Foreground = brush;
             digital2.Foreground = brush;
-        }
-        private void SetBlackTheme()
-        {
+            centerRing.Stroke = brush;
 
+            var kids = ticks.Children;
+            foreach (Line item in kids)
+                item.Stroke = brush;
         }
 
         private void UpdateClocks(object sender, EventArgs e)

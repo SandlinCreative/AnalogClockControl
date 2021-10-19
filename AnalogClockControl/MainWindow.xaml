@@ -11,17 +11,10 @@
         WindowStyle="None" 
         PreviewMouseDown="TheWindow_PreviewMouseDown" 
         PreviewMouseRightButtonUp="TheWindow_PreviewMouseRightButtonUp"
-        MouseWheel="TheWindow_MouseWheel" Background="{x:Null}"
+        MouseWheel="TheWindow_MouseWheel" Background="{x:Null}" Topmost="True"
         >
 
     <Viewbox Margin="8">
-        <Grid>
-            <Viewbox>
-                <custom:AnalogClock />
-            </Viewbox>
-            <Viewbox>
-                
-            </Viewbox>
-        </Grid>
+        <custom:AnalogClock />
     </Viewbox>
 </Window>
