@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Drawing;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -17,37 +14,70 @@ namespace AnalogClockControl.CustomControls
 
         private ArrayList shapeParts = new ArrayList();
         private ArrayList textBlockParts = new ArrayList();
-        private Line        hourHand;
-        private Line        minuteHand;
-        private Line        secondHand;
-        private Ellipse     border;
-        private Ellipse     centerRing;
-        private TextBlock   digital;
-        private TextBlock   digital2;
-        private Grid        ticks;
+        private Line hourHand;
+        private Line minuteHand;
+        private Line secondHand;
+        private Ellipse border;
+        private Ellipse centerRing;
+        private TextBlock digital;
+        private TextBlock digital2;
+        private TextBlock timezoneTxtBlk;
+        private Grid ticks;
+        private TimeZoneInfo Timezone;
 
-        private ContextMenu cm = new ContextMenu();
+        private MenuItem tzMenu = new MenuItem();
 
+        static AnalogClock()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(AnalogClock), new FrameworkPropertyMetadata(typeof(AnalogClock)));
+        }
 
         public AnalogClock()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(AnalogClock), new FrameworkPropertyMetadata(typeof(AnalogClock)));
-
-            this.ContextMenu = cm;
+            Timezone = TimeZoneInfo.Local;
+            ContextMenu = new ContextMenu();
+            var mi0 = new MenuItem();
             var mi = new MenuItem();
             var mi2 = new MenuItem();
             var mi3 = new MenuItem();
-            cm.Items.Add(mi2);
-            cm.Items.Add(mi3);
-            cm.Items.Add(mi);
+            ContextMenu.Items.Add(mi0);
+            LoadTimezoneMenu();
+            ContextMenu.Items.Add(mi2);
+            ContextMenu.Items.Add(mi3);
+            ContextMenu.Items.Add(mi);
+            mi0.Header = "New Clock";
             mi.Header = "Close";
-            mi.Icon = MakeIcon("pack://application:,,,/Resources/ChromeClose_16x.png", 16);
-            mi.Click += (s, e) => Application.Current.Shutdown();
+            //mi.Icon = MakeIcon("pack://application:,,,/Resources/ChromeClose_16x.png", 16);
             mi2.Header = "Dark Mode";
             mi3.Header = "Light Mode";
-            //mi3.Icon = MakeIcon("pack://application:,,,/Resources/Checkmark_12x_16x.png", 16);
+            mi0.Click += (s, e) => { Window newClock = new ClockWindow(); newClock.Show(); };
+            mi.Click += (s, e) => Window.GetWindow(this).Close();
             mi2.Click += (s, e) => SetThemeColor(Colors.Black);
             mi3.Click += (s, e) => SetThemeColor(Colors.White);
+
+            //mi3.Icon = MakeIcon("pack://application:,,,/Resources/Checkmark_12x_16x.png", 16);
+        }
+
+        private void LoadTimezoneMenu()
+        {
+            tzMenu.Header = "Timezone";
+            MenuItem temp;
+            foreach (TimeZoneInfo zone in TimeZoneInfo.GetSystemTimeZones())
+            {
+                temp = new MenuItem();
+                temp.Header = zone;
+                temp.Timezone = zone;
+                temp.Click += SetTimezone;
+                tzMenu.Items.Add(temp);
+            }
+            ContextMenu.Items.Add(tzMenu);
+        }
+
+        private void SetTimezone(object sender, RoutedEventArgs e)
+        {
+            TimeZoneInfo tzi = (sender as MenuItem).Timezone;
+            Timezone = tzi;
+            timezoneTxtBlk.Text = tzi.Id;
         }
 
         public override void OnApplyTemplate()
@@ -57,21 +87,25 @@ namespace AnalogClockControl.CustomControls
             secondHand = Template.FindName("PART_SecondHand", this) as Line;
             digital = Template.FindName("PART_Digital", this) as TextBlock;
             digital2 = Template.FindName("PART_Digital2", this) as TextBlock;
+            timezoneTxtBlk = Template.FindName("PART_Timezone", this) as TextBlock;
             ticks = Template.FindName("PART_ClockTicks", this) as Grid;
             border = Template.FindName("PART_Border", this) as Ellipse;
             centerRing = Template.FindName("PART_Center2", this) as Ellipse;
 
             shapeParts.Add(hourHand);
             shapeParts.Add(minuteHand);
-            shapeParts.Add(secondHand);
+            //shapeParts.Add(secondHand);
             shapeParts.Add(border);
             shapeParts.Add(centerRing);
             textBlockParts.Add(digital);
             textBlockParts.Add(digital2);
+            textBlockParts.Add(timezoneTxtBlk);
 
             dispTimer.Interval = TimeSpan.FromMilliseconds(1000);
             dispTimer.Tick += new EventHandler(UpdateClocks);
             dispTimer.IsEnabled = true;
+
+            timezoneTxtBlk.Text = Timezone.Id;
 
             SetThemeColor(Colors.White);
 
@@ -86,7 +120,6 @@ namespace AnalogClockControl.CustomControls
             var rndColor = Color.FromRgb(bytes[0], bytes[1], bytes[2]);
             SetThemeColor(rndColor);
         }
-
         private void SetThemeColor(Color color)
         {
             var brush = new SolidColorBrush(color);
@@ -99,23 +132,25 @@ namespace AnalogClockControl.CustomControls
 
             foreach (TextBlock item in textBlockParts)
                 item.Foreground = brush;
-
         }
+
+        private DateTime Now() => TimeZoneInfo.ConvertTime(DateTime.Now, Timezone);
 
         private void UpdateClocks(object sender, EventArgs e)
         {
-            hourHand.RenderTransform = new RotateTransform((DateTime.Now.Hour / 12.0) * 360, 0.5, 0.5);
-            minuteHand.RenderTransform = new RotateTransform((DateTime.Now.Minute / 60.0) * 360, 0.5, 0.5);
-            secondHand.RenderTransform = new RotateTransform((DateTime.Now.Millisecond / 60.0) * 360, 0.5, 0.5);
+            hourHand.RenderTransform = new RotateTransform(((Now().Hour) / 12.0) * 360, 0.5, 0.5);
+            minuteHand.RenderTransform = new RotateTransform((Now().Minute / 60.0) * 360, 0.5, 0.5);
+            secondHand.RenderTransform = new RotateTransform((Now().Second / 60.0) * 360, 0.5, 0.5);
 
-            digital.Text = DateTime.Now.ToString("hh:mm:ss");
-            digital2.Text = DateTime.Now.ToString("tt");
+            digital.Text = Now().ToString("hh:mm:ss");
+            digital2.Text = Now().ToString("tt");
 
             //SetThemeColor();
         }
 
-        System.Windows.Media.Imaging.BitmapImage srcBmp = new System.Windows.Media.Imaging.BitmapImage();
-        Image icon = new Image();
+        private System.Windows.Media.Imaging.BitmapImage srcBmp = new System.Windows.Media.Imaging.BitmapImage();
+        private Image icon = new Image();
+
         private Image MakeIcon(string path, int pixelWidth)
         {
             srcBmp.BeginInit();
@@ -123,8 +158,13 @@ namespace AnalogClockControl.CustomControls
             srcBmp.DecodePixelWidth = pixelWidth;
             srcBmp.EndInit();
             icon.Source = srcBmp;
-            
+
             return icon;
         }
+    }
+
+    public partial class MenuItem : System.Windows.Controls.MenuItem
+    {
+        public TimeZoneInfo Timezone;
     }
 }
